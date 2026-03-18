@@ -12,7 +12,7 @@ const QUESTIONS = [
   "Where do you see yourself in the next five years?"
 ];
 
-const Interview = ({ userName, onComplete }) => {
+const Interview = ({ userName, onComplete, onCapturePhoto }) => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState('');
@@ -81,7 +81,23 @@ const Interview = ({ userName, onComplete }) => {
     }
   };
 
+  const capturePhoto = () => {
+    if (videoRef.current) {
+      const canvas = document.createElement('canvas');
+      canvas.width = videoRef.current.videoWidth;
+      canvas.height = videoRef.current.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(videoRef.current, 0, 0);
+      const photoData = canvas.toDataURL('image/jpeg');
+      onCapturePhoto(photoData);
+      console.log("📸 Photo captured");
+    }
+  };
+
   const handleNext = async () => {
+    // Capture photo on first question if not already captured
+    if (currentIdx === 0) capturePhoto();
+
     // Save current response
     const logEntry = {
       question: QUESTIONS[currentIdx],

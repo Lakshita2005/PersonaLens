@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer,
@@ -8,10 +8,13 @@ import {
   Brain, Award, Target, TrendingUp, AlertCircle, 
   Download, Share2, User, Camera, Sparkles, RefreshCw
 } from 'lucide-react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const Dashboard = ({ userData, interviewData }) => {
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(true);
+  const reportRef = useRef(null);
 
   useEffect(() => {
     const fetchAnalysis = async () => {
@@ -50,6 +53,31 @@ const Dashboard = ({ userData, interviewData }) => {
     fetchAnalysis();
   }, [userData, interviewData]);
 
+  const handleExport = async () => {
+    if (!reportRef.current) return;
+    
+    try {
+      const canvas = await html2canvas(reportRef.current, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#020617', // Match slate-950
+        logging: false,
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`PersonaLens_Report_${userData.name.replace(/\s+/g, '_')}.pdf`);
+    } catch (err) {
+      console.error("PDF Export error:", err);
+      alert("Failed to export report. Please try again.");
+    }
+  };
+
   if (loading) return (
     <div className="flex flex-col items-center justify-center min-h-[70vh]">
       <div className="w-16 h-16 border-4 border-primary-500/30 border-t-primary-500 rounded-full animate-spin mb-6" />
@@ -59,16 +87,25 @@ const Dashboard = ({ userData, interviewData }) => {
 
   return (
     <motion.div 
+      ref={reportRef}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="space-y-8 pb-20"
+      className="space-y-8 pb-20 p-4"
     >
       {/* Header Profile Section */}
       <div className="flex flex-col md:flex-row items-center gap-8 p-10 rounded-[3rem] bg-white/5 border border-white/10 backdrop-blur-3xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 blur-[100px] -z-10" />
-        <div className="w-40 h-40 rounded-[2.5rem] bg-gradient-to-tr from-primary-600 to-indigo-600 flex items-center justify-center text-6xl font-black text-white shadow-2xl shadow-primary-500/20">
-          {userData.name.charAt(0)}
-        </div>
+        
+        {userData.photo ? (
+          <div className="w-40 h-40 rounded-[2.5rem] overflow-hidden border-2 border-primary-500 shadow-2xl shadow-primary-500/20">
+            <img src={userData.photo} alt={userData.name} className="w-full h-full object-cover" />
+          </div>
+        ) : (
+          <div className="w-40 h-40 rounded-[2.5rem] bg-gradient-to-tr from-primary-600 to-indigo-600 flex items-center justify-center text-6xl font-black text-white shadow-2xl shadow-primary-500/20">
+            {userData.name.charAt(0)}
+          </div>
+        )}
+
         <div className="flex-grow text-center md:text-left">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-500/10 border border-primary-500/20 mb-4">
             <Sparkles className="w-3.5 h-3.5 text-primary-400" />
@@ -78,10 +115,10 @@ const Dashboard = ({ userData, interviewData }) => {
           <p className="text-slate-400 text-lg max-w-xl italic">"{analysis.summary}"</p>
         </div>
         <div className="flex gap-4">
-          <button className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
-            <Share2 className="w-5 h-5 text-slate-300" />
-          </button>
-          <button className="flex items-center gap-2 px-6 py-4 rounded-2xl bg-primary-600 hover:bg-primary-500 text-white font-bold transition-all shadow-lg shadow-primary-600/20">
+          <button 
+            onClick={handleExport}
+            className="flex items-center gap-2 px-6 py-4 rounded-2xl bg-primary-600 hover:bg-primary-500 text-white font-bold transition-all shadow-lg shadow-primary-600/20"
+          >
             <Download className="w-5 h-5" /> Export Report
           </button>
         </div>
@@ -151,20 +188,19 @@ const Dashboard = ({ userData, interviewData }) => {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {analysis.suggestions.map((s, i) => (
-            <motion.div 
+            <div 
               key={i}
-              whileHover={{ scale: 1.02 }}
               className="p-6 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-4 transition-all hover:bg-white/10"
             >
               <div className="p-3 rounded-xl bg-primary-500/10 text-primary-400 font-bold text-xl">0{i+1}</div>
               <p className="text-slate-300 leading-relaxed font-medium">{s}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
 
       {/* Footer / CTA */}
-      <div className="flex justify-center pt-8">
+      <div className="flex justify-center pt-8 no-print">
         <button 
           onClick={() => window.location.reload()}
           className="flex items-center gap-3 px-8 py-5 rounded-3xl bg-white text-slate-950 font-black hover:bg-slate-200 transition-all shadow-xl shadow-white/10"

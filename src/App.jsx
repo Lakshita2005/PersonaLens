@@ -31,6 +31,7 @@ function App() {
             <Interview 
               userName={userData.name} 
               onComplete={handleComplete} 
+              onCapturePhoto={(photo) => setUserData(prev => ({ ...prev, photo }))}
               key="interview" 
             />
           )}
