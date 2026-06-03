@@ -1,18 +1,60 @@
 # Dependencies
 node_modules/
+frontend/node_modules/
 backend/venv/
+backend/.venv/
 backend/__pycache__/
+backend/app/**/__pycache__/
+__pycache__/
+*.py[cod]
 
 # Environments
 .env
 .env.local
 backend/.env
+backend/.env.local
+frontend/.env
+frontend/.env.local
 
 # Build outputs
 dist/
+frontend/dist/
 dist-ssr/
+.vite/
+frontend/.vite/
+*.tsbuildinfo
+
+# Runtime logs
+*.log
+backend/storage/
+*.sqlite
+*.sqlite3
+*.db
 
 # System files
 .DS_Store
 Thumbs.db
 *.local
+venv
+.history/
+
+# Test and coverage artifacts
+.pytest_cache/
+.coverage
+coverage/
+htmlcov/
+
+# IDE and editor state
+.idea/
+.vscode/
+
+# Project documents and research artifacts
+PersonaLens_SRS.pdf
+pipeline/docs/
+pipeline/**/*.pdf
+pipeline/**/*.docx
+pipeline/**/*.zip
+pipeline/**/*.ipynb
+*.pdf
+*.docx
+*.zip
