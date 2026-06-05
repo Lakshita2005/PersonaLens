@@ -221,7 +221,7 @@ export const AuthFormPanel = ({
         </button>
 
         <div className="text-center">
-          <h1 className="font-display text-5xl leading-none tracking-normal text-slate-950 sm:text-[3.25rem]">
+          <h1 className="font-display text-3xl leading-tight tracking-normal text-slate-950 sm:text-4xl">
             {copy.title}
           </h1>
           <p className="mt-4 text-sm leading-6 text-slate-500">{copy.body}</p>

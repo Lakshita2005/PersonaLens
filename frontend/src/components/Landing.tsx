@@ -148,7 +148,7 @@ const Landing = ({ onStart }: LandingProps) => {
 
       <section
         id="overview"
-        className="container-shell relative z-10 grid gap-10 py-14 lg:grid-cols-[0.95fr_1.05fr] lg:py-20"
+        className="container-shell relative z-10 grid gap-12 py-16 lg:grid-cols-[0.95fr_1.05fr] lg:py-24"
       >
         <motion.div
           initial="hidden"
@@ -158,7 +158,7 @@ const Landing = ({ onStart }: LandingProps) => {
         >
           <motion.div
             variants={fadeUp}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-3 py-2 shadow-line"
+            className="mb-8 inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-3 py-2 shadow-line"
           >
             <ShieldCheck className="h-4 w-4 text-brand" />
             <span className="text-xs font-bold uppercase tracking-[0.18em] text-brand">
@@ -168,21 +168,21 @@ const Landing = ({ onStart }: LandingProps) => {
 
           <motion.h1
             variants={fadeUp}
-            className="landing-display text-5xl leading-[1.02] tracking-normal text-foreground sm:text-6xl lg:text-[4.75rem]"
+            className="landing-display max-w-3xl text-[1.9rem] leading-[1.32] tracking-normal text-foreground sm:text-[2.45rem] lg:text-[2.65rem]"
           >
             Turn academic mock interviews into mentor-ready intelligence.
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
-            className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground"
+            className="mt-8 max-w-2xl text-base leading-8 text-muted-foreground"
           >
             PersonaLens helps colleges assess placement readiness by combining guided
             interview answers, browser-side emotion signals, OCEAN personality analysis,
             and secure assessment services that can grow with the product.
           </motion.p>
 
-          <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <motion.div variants={fadeUp} className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Button size="lg" onClick={focusAssessment}>
               Start assessment
               <ArrowRight className="h-4 w-4" />
@@ -199,7 +199,7 @@ const Landing = ({ onStart }: LandingProps) => {
             </Button>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="mt-10 grid max-w-2xl gap-3 sm:grid-cols-3">
+          <motion.div variants={fadeUp} className="mt-12 grid max-w-2xl gap-4 sm:grid-cols-3">
             {platformStats.map((item) => (
               <div
                 key={item.label}
@@ -369,7 +369,7 @@ const Landing = ({ onStart }: LandingProps) => {
         <div className="mb-10 grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="eyebrow">Core features dashboard</p>
-            <h2 className="landing-display mt-3 text-3xl tracking-normal sm:text-4xl">
+            <h2 className="landing-display mt-3 text-xl tracking-normal sm:text-2xl">
               The PersonaLens modules your project is built around.
             </h2>
           </div>
@@ -425,7 +425,7 @@ const Landing = ({ onStart }: LandingProps) => {
         <div className="mb-10 grid gap-6 lg:grid-cols-[0.75fr_1fr]">
           <div>
             <p className="eyebrow">Product capability</p>
-            <h2 className="landing-display mt-3 text-3xl tracking-normal sm:text-4xl">
+            <h2 className="landing-display mt-3 text-xl tracking-normal sm:text-2xl">
               A SaaS-style assessment layer for academic career development.
             </h2>
           </div>
@@ -457,7 +457,7 @@ const Landing = ({ onStart }: LandingProps) => {
           <div className="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <p className="eyebrow">System architecture</p>
-              <h2 className="landing-display mt-3 text-3xl tracking-normal sm:text-4xl">
+              <h2 className="landing-display mt-3 text-xl tracking-normal sm:text-2xl">
                 Modular assessment services for your product roadmap.
               </h2>
             </div>
@@ -505,7 +505,7 @@ const Landing = ({ onStart }: LandingProps) => {
         <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
           <div>
             <p className="eyebrow">Campus workflows</p>
-            <h2 className="landing-display mt-3 text-3xl tracking-normal sm:text-4xl">
+            <h2 className="landing-display mt-3 text-xl tracking-normal sm:text-2xl">
               Built around placement cells, mentors, and student readiness labs.
             </h2>
             <p className="mt-4 text-base leading-7 text-muted-foreground">
@@ -584,7 +584,7 @@ const Landing = ({ onStart }: LandingProps) => {
           <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-3xl">
               <p className="eyebrow">Enterprise posture</p>
-              <h2 className="landing-display mt-3 text-3xl tracking-normal sm:text-4xl">
+              <h2 className="landing-display mt-3 text-xl tracking-normal sm:text-2xl">
                 Professional enough for college deployment, flexible enough for your roadmap.
               </h2>
             </div>

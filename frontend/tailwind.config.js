@@ -54,8 +54,8 @@ export default {
         line: "0 1px 0 rgba(16, 24, 40, 0.08)",
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: ["Cormorant Garamond", "Georgia", "serif"],
+        sans: ["Source Sans 3", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["Source Sans 3", "ui-sans-serif", "system-ui", "sans-serif"],
       },
     },
   },
