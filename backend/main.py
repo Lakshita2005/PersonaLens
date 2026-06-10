@@ -38,9 +38,15 @@ async def analyze_personality(request: AnalysisRequest):
     if not os.getenv("GEMINI_API_KEY"):
         raise HTTPException(status_code=500, detail="Gemini API Key not configured")
     
-    # Prompt engineering for personality analysis
+    # Prompt engineering for detailed personality and linguistic analysis
     prompt = f"""
-    Analyze the personality of {request.name} based on the following interview transcript and emotional data.
+    Analyze the personality and communication style of {request.name} based on the following interview transcript and emotional data.
+    
+    CRITICAL: Pay close attention to linguistic patterns such as:
+    1. Filler words (e.g., "um", "uh", "like", "you know", "actually").
+    2. Stammering or repetitions.
+    3. Sentence structure and clarity.
+    
     Return ONLY a valid JSON object. No markdown, no pre-amble, no triple backticks.
     
     Format:
@@ -52,10 +58,25 @@ async def analyze_personality(request: AnalysisRequest):
         {{ "trait": "Agreeableness", "A": score, "fullMark": 100 }},
         {{ "trait": "Neuroticism", "A": score, "fullMark": 100 }}
       ],
-      "summary": "Full text summary",
-      "strengths": ["Strength 1", "Strength 2"],
-      "improvements": ["Improvement 1", "Improvement 2"],
-      "suggestions": ["Suggestion 1", "Suggestion 2"]
+      "summary": "Concise high-level summary",
+      "linguistic_analysis": {{
+        "filler_count": total_count_of_fillers,
+        "top_fillers": ["filler1", "filler2"],
+        "clarity_score": score_out_of_100,
+        "stammering_detected": true/false,
+        "feedback": "Specific feedback on speech patterns and how to improve clarity"
+      }},
+      "role_suitability": [
+        {{ "role": "Leadership", "match": score_out_of_100 }},
+        {{ "role": "Technical/Analytical", "match": score_out_of_100 }},
+        {{ "role": "Creative/Strategic", "match": score_out_of_100 }},
+        {{ "role": "Customer-Facing/Social", "match": score_out_of_100 }}
+      ],
+      "personality_deep_dive": {{
+        "strengths_detailed": "In-depth analysis of core strengths",
+        "growth_detailed": "Deep dive into areas for professional and personal growth"
+      }},
+      "suggestions": ["Immediate actionable suggestion 1", "Suggestion 2"]
     }}
     
     Data:
