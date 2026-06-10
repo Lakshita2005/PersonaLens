@@ -1,12 +1,6 @@
-import os
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from typing import List, Optional
-import google.generativeai as genai
-from dotenv import load_dotenv
+import uvicorn
 
-load_dotenv()
+from app.main import app
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
@@ -96,5 +90,4 @@ async def analyze_personality(request: AnalysisRequest):
     return {"analysis": text}
 
 if __name__ == "__main__":
-    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

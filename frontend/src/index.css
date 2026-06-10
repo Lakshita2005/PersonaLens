@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --background: 216 45% 98%;
+  --foreground: 218 34% 13%;
+  --surface: 0 0% 100%;
+  --surface-foreground: 218 34% 13%;
+  --muted: 218 32% 94%;
+  --muted-foreground: 217 14% 43%;
+  --border: 218 24% 88%;
+  --input: 218 21% 86%;
+  --ring: 219 41% 51%;
+  --brand: 219 41% 51%;
+  --brand-foreground: 0 0% 100%;
+  --brand-soft: 219 52% 93%;
+  --accent: 24 48% 43%;
+  --accent-foreground: 0 0% 100%;
+  --accent-soft: 30 47% 92%;
+}
+
+* {
+  border-color: hsl(var(--border));
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family:
+    "Source Sans 3", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display,
+.landing-display,
+.highlight-text {
+  font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600 !important;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family:
+    "Source Sans 3", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+canvas {
+  pointer-events: none;
+}
+
+::selection {
+  background: hsl(var(--brand-soft));
+  color: hsl(var(--foreground));
+}
+
+.container-shell {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.section-y {
+  @apply py-16 sm:py-20 lg:py-24;
+}
+
+.eyebrow {
+  @apply text-xs font-bold uppercase tracking-[0.18em] text-brand;
+}
+
+.field {
+  @apply h-11 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground shadow-line outline-none transition-colors placeholder:text-muted-foreground focus:border-brand focus:ring-2 focus:ring-brand/20;
+}
+
+.textarea-field {
+  @apply min-h-32 w-full resize-none rounded-md border border-input bg-background p-3 text-sm leading-6 text-foreground shadow-line outline-none transition-colors placeholder:text-muted-foreground focus:border-brand focus:ring-2 focus:ring-brand/20;
+}
